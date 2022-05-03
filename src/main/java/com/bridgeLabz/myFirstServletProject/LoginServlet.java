@@ -30,15 +30,33 @@ public class LoginServlet extends HttpServlet {
         String userID = getServletConfig().getInitParameter("user");
         String password = getServletConfig().getInitParameter("password");
 
-        Pattern pattern = Pattern.compile("^([A-Z][a-zA-Z]{2,}[ ]?)+$");
-        Matcher matcher = pattern.matcher(user);
-        if(!matcher.matches()) {
+        /**
+         * Defining the pattern of UserID and Password validating the format.
+         */
+        Pattern userpattern = Pattern.compile("^([A-Z][a-zA-Z]{2,}[ ]?)+$");
+        Matcher userMatcher = userpattern.matcher(user);
+        Pattern pwdPattern = Pattern.compile("^([a-zA-Z0-9]{4,}[!@#$%&*]{1}[a-zA-Z0-9]{1,})$");
+        Matcher pwdMatcher = pwdPattern.matcher(pwd);
+        //For UserId
+        if(!userMatcher.matches()) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
             PrintWriter out = response.getWriter();
             out.println("<font color = red> Incorrect UserId. Please try again!!<font>");
             rd.include(request, response);
             return;
         }
+        //For Password
+        if(!pwdMatcher.matches()) {
+            PrintWriter out = response.getWriter();
+            out.println("<font color = orange> Incorrect Password. Please try again!!<font>");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+            rd.include(request, response);
+            return;
+        }
+
+        /**
+         * Validating the users Credentials and allowing user to login to the page.
+         */
         if (userID.equals(user) && password.equals(pwd)) {
             request.setAttribute("user", user);
             request.getRequestDispatcher("LoginSuccess.jsp").forward(request, response);
