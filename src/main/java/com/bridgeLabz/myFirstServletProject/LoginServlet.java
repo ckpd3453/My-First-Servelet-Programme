@@ -9,13 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet(
         description = "Login Servlet Testing",
         urlPatterns = {"/LoginServlet"},
         initParams = {
-                @WebInitParam(name = "user", value = "Suraj"),
-                @WebInitParam(name = "password", value = "suraj@123")
+                @WebInitParam(name = "user", value = "ChandraKant"),
+                @WebInitParam(name = "password", value = "ckpd@123")
         }
 )
 public class LoginServlet extends HttpServlet {
@@ -28,15 +30,23 @@ public class LoginServlet extends HttpServlet {
         String userID = getServletConfig().getInitParameter("user");
         String password = getServletConfig().getInitParameter("password");
 
+        Pattern pattern = Pattern.compile("^([A-Z][a-zA-Z]{2,}[ ]?)+$");
+        Matcher matcher = pattern.matcher(user);
+        if(!matcher.matches()) {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+            PrintWriter out = response.getWriter();
+            out.println("<font color = red> Incorrect UserId. Please try again!!<font>");
+            rd.include(request, response);
+            return;
+        }
         if (userID.equals(user) && password.equals(pwd)) {
-
             request.setAttribute("user", user);
             request.getRequestDispatcher("LoginSuccess.jsp").forward(request, response);
         } else {
-            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/login.html");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
             PrintWriter out = response.getWriter();
             out.println("<font color=red> Either user name or password is wrong.</font>");
-            requestDispatcher.include(request, response);
+            rd.include(request, response);
         }
     }
 }

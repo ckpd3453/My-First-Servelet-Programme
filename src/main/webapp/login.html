@@ -1,19 +1,74 @@
-<!doctype html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login page</title>
+    <title>User Login Page</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        form{
+            background-color: cadetblue;
+            text-align: center;
+            border-radius: 15px;
+            height: 400px;
+            width: 50%;
+            margin-left: 25%;
+            margin-right: 25%;
+        }
+        h1{
+            padding: 20px 20px;
+            text-align: center;
+            font-family: Georgia Serif;
+            color: chocolate;
+        }
+        .container{
+            margin-top: 50px;
+            margin-bottom: 20px;
+            background-color: cadetblue;
+            border-color: black;
+            margin-left: 20px;
+            margin-right: 20px;
+            padding: 20px 20px;
+            padding-top: 40px;
+            text-align: center;
+        }
+        label Username,Password{
+            color: white;
+            color: chocolate;
+            font-family: Georgia Serif;
+            text-align: center;
+            padding: 10px 10px;
+            font-size: larger;
+        }
+
+        .input {
+            width: 70%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        .button{
+            width: 40%;
+            padding: 12px;
+            margin-left: 45%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+    </style>
 </head>
 <body>
-
-<form action="LoginServlet" method="post" class="loginForm">
-    Username: <input type="text" name="user"><br><br>
-    Password: <input type="password" name="pwd"><br><br>
-    <input type="submit" value="Login" >
+<form action="LoginServlet" method="post">
+    <div class="container">
+        <h1><b><u> Login Form</u></b></h1>
+        <label>Username : </label>
+        <input type="text" placeholder="Enter Username" name="user" class="input" required><br><br>
+        <label>Password : </label>
+        <input type="password" placeholder="Enter Password" name="pwd" class="input" required><br><br>
+        <input type="submit" value="Login" class="button">
+    </div>
 </form>
-
 </body>
 </html>
